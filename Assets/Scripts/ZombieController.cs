@@ -11,13 +11,26 @@ public class ZombieController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (target != null)
         {
-            float step = speed * Time.deltaTime;
+            Vector2 direction = (target.position - transform.position).normalized;
 
-            transform.position = Vector2.MoveTowards(transform.position, target.position, step);
+            Vector2 newPos = rb.position + direction * speed * Time.fixedDeltaTime;
+            rb.MovePosition(newPos);
+        }
+    }
+
+    void OnCollisionEnter(Collision collisionInfo)
+    {
+        Debug.Log("Collision detected with " + collisionInfo.gameObject.name);
+
+        if (collisionInfo.gameObject.CompareTag("Player"))
+        {
+            PlayerController = collisionInfo.gameObject.GetComponent<PlayerController>();
+
+            if(PlayerController != null)
         }
     }
 }

@@ -6,9 +6,15 @@ public class PlayerController : MonoBehaviour
     Rigidbody2D rb;
     Vector2 moveInput;
 
+    public float maxHealth = 10f;
+    float health;
+
+
+
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        health = maxHealth;
     }
 
     void Update()
@@ -21,5 +27,21 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
         rb.linearVelocity = moveInput * moveSpeed;
+    }
+
+    private void changeHealth(float impact)
+    {
+        if(health + impact < maxHealth)
+        {
+            health += impact;
+        } else
+        {
+            health = maxHealth;
+        }
+
+        if(health < 0)
+        {
+            StateManager.GameOver();
+        }
     }
 }
