@@ -315,10 +315,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RoadGenerator
   groundTilemap: {fileID: 162886268235414287}
   roadTilemap: {fileID: 7323704963222928898}
-  roadTile: {fileID: 11400000, guid: f044a557952ea459b8e5eacbd5dcc674, type: 2}
-  minExitsPerEdge: 1
-  maxExitsPerEdge: 2
-  internalRoadChance: 30
+  centerTile: {fileID: 11400000, guid: 001b969a3bc8a874cb567f72fc10e643, type: 2}
+  edgeTop: {fileID: 11400000, guid: efd04e47873be2347a48d25c42f3b660, type: 2}
+  edgeBottom: {fileID: 11400000, guid: 5f408e05bba080341acab1505a9aaa75, type: 2}
+  edgeLeft: {fileID: 11400000, guid: 42baad2c47e78a146a865c5d6a15135a, type: 2}
+  edgeRight: {fileID: 11400000, guid: 0726fa8235de2fa4d9025f7a7aa15f80, type: 2}
+  cornerTopLeft: {fileID: 11400000, guid: 91f8fbeed63a4ca4e99af5b07e264204, type: 2}
+  cornerTopRight: {fileID: 11400000, guid: 236b9a94cabb8ba4cbb1b2117d3a4780, type: 2}
+  cornerBottomLeft: {fileID: 11400000, guid: 658e16f8ae708ec43b656f9d6e532411, type: 2}
+  cornerBottomRight: {fileID: 11400000, guid: 42a42cbb0afded2458aa5e70f5d9216e, type: 2}
+  roadWidth: 5
+  roadChance: 60
 --- !u!1 &7385036018138628545
 GameObject:
   m_ObjectHideFlags: 0

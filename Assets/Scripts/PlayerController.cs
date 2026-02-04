@@ -41,7 +41,22 @@ public class PlayerController : MonoBehaviour
 
         if(health < 0)
         {
+            health = 0;
             StateManager.GameOver();
         }
+
+        Debug.Log("Health is " + health);
+    }
+
+    public void dealDamage(float impact)
+    {
+        Debug.Log("Dealing " + impact + "damage");
+        changeHealth(-impact);
+    }
+
+    public void healHealth(float impact)
+    {
+        Debug.Log("Healing " + impact + "health");
+        changeHealth(impact);
     }
 }

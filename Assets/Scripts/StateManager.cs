@@ -7,6 +7,6 @@ public class StateManager
 
     public static void GameOver()
     {
-        
+        Debug.Log("Game Over");
     }
 }
