@@ -77,24 +77,13 @@ public class WorldGenerator : MonoBehaviour
         
         RoadGenerator rg = chunk.GetComponent<RoadGenerator>();
         
-        // Fill ground
-        for (int x = 0; x < chunkSize; x++)
-        {
-            for (int y = 0; y < chunkSize; y++)
-            {
-                rg.groundTilemap.SetTile(new Vector3Int(x, y, 0), groundTile);
-            }
-        }
-        
         rg.GenerateRoads(coord, chunkSize);
         
         activeChunks.Add(coord, chunk);
     }
     
     public void ResetWorld()
-    {
-        RoadGenerator.ClearCache();
-        
+    {        
         foreach (var chunk in activeChunks.Values)
         {
             Destroy(chunk);

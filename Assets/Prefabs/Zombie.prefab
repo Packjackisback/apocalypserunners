@@ -201,5 +201,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10ec820eb178a434a887cebe04e055a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ZombieController
-  speed: 5
+  speed: 2
   target: {fileID: 0}
+  damage: 0.8
+  health: 3
