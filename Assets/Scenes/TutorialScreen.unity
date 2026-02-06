@@ -840,7 +840,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
 --- !u!1001 &728019935
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2738,46 +2737,9 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d51abdd79905fd74e81fd539c167afbc, type: 3}
-=======
->>>>>>> b07bcead94a0fcfd32afe2ba37c1690c7c5a1afa
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 619394802}
-<<<<<<< HEAD
-  - {fileID: 1942943613}
-  - {fileID: 728019935}
-  - {fileID: 986441336}
-  - {fileID: 1497610889}
-  - {fileID: 1060236049}
-  - {fileID: 245051994}
-  - {fileID: 122455285}
-  - {fileID: 1334129196}
-  - {fileID: 968956763}
-  - {fileID: 1360726206}
-  - {fileID: 1614087831}
-  - {fileID: 1377080515}
-  - {fileID: 36520941}
-  - {fileID: 91655474}
-  - {fileID: 1225745309}
-  - {fileID: 148571717}
-  - {fileID: 1602951923}
-  - {fileID: 1361294044}
-  - {fileID: 580673842}
-  - {fileID: 1613783059}
-  - {fileID: 521776287}
-  - {fileID: 1020558827}
-  - {fileID: 758106824}
-  - {fileID: 312322422}
-  - {fileID: 1202493510}
-  - {fileID: 1881946318}
-  - {fileID: 1948869761}
-  - {fileID: 831294728}
-  - {fileID: 1325349140}
-  - {fileID: 1222216457}
-  - {fileID: 7316650659778994954}
-  - {fileID: 752691111}
-=======
->>>>>>> b07bcead94a0fcfd32afe2ba37c1690c7c5a1afa
