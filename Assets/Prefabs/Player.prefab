@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4617909642884331743}
   - component: {fileID: 6494870808882419645}
   - component: {fileID: 1295263198286372772}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -202,3 +202,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   moveSpeed: 6
+  maxHealth: 10
