@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 4048479403412967179}
   - component: {fileID: 2421463679943045695}
   - component: {fileID: 238762405220382453}
+  - component: {fileID: 8766262466409873046}
   m_Layer: 0
   m_Name: Chunk_0_0
   m_TagString: Untagged
@@ -190,6 +191,20 @@ MonoBehaviour:
   roadRuleTile: {fileID: 11400000, guid: 121bac3e4943b604fae6fcea52d5dde3, type: 2}
   roadWidth: 5
   roadChance: 60
+--- !u!114 &8766262466409873046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4631434303383631178}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 768763948289cbc48afdd8f91a2f3538, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::StructureGenerator
+  structureTilemap: {fileID: 5428154324531576187}
+  buildings: []
 --- !u!1 &7385036018138628545
 GameObject:
   m_ObjectHideFlags: 0
