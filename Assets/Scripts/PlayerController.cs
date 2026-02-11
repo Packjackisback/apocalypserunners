@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
 
     private bool isShooting = false;
+    private bool isStabbing = false;
 
     void Awake()
     {
@@ -23,25 +24,42 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetMouseButtonDown(0) && !isShooting)
+        if(Input.GetMouseButtonDown(0) && !isShooting && !isStabbing)
         {
-            isShooting = true;
             StartCoroutine(ShootRoutine());
+        } else if(Input.GetMouseButtonDown(1) && !isShooting && !isShooting) {
+            StartCoroutine(StabRoutine());
         } else
         {
             handleMovement();
         }
+
+        animator.SetFloat("Velocity", Math.Max(Math.Abs(rb.linearVelocityX), Math.Abs(rb.linearVelocityY)));
     }
 
     System.Collections.IEnumerator ShootRoutine()
     {
         isShooting = true;
-        animator.SetTrigger("isShooting");
+        animator.SetFloat("Attacking", 1);
 
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
+        animator.SetFloat("Attacking", 0);
         isShooting = false;
     }
+
+    System.Collections.IEnumerator StabRoutine()
+    {
+        isStabbing = true;
+        animator.SetFloat("Attacking", 2);
+
+        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
+        animator.SetFloat("Attacking", 0);
+        isStabbing = false;
+    }
+
+
     void handleMovement()
     {
         moveInput.x = Input.GetAxisRaw("Horizontal");
