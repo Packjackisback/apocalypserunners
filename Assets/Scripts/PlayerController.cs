@@ -101,8 +101,8 @@ public class PlayerController : MonoBehaviour
         {
             health = maxHealth;
         }
-
-        if(health < 0)
+        UIHealthBar.instance.SetValue(health / (float)maxHealth);
+        if(health <= 0)
         {
             health = 0;
             StateManager.GameOver();

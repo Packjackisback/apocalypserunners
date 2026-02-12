@@ -7,14 +7,18 @@ public class ZombieController : MonoBehaviour
     public Transform target;
     public float damage = 0.8f;
     public float health = 3f;
+    public bool canMove = true;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        canMove = false;
     }
 
     void FixedUpdate()
     {
+        if (!canMove)
+            return;
         if (target != null)
         {
             Vector2 direction = (target.position - transform.position).normalized;
@@ -61,4 +65,26 @@ public class ZombieController : MonoBehaviour
     {
         changeHealth(impact);
     }
+    void OnEnable()
+    {
+        GameEvents.OnTutorialStarted += DisableMovement;
+        GameEvents.OnTutorialCompleted += EnableMovement;
+    }
+
+    void OnDisable()
+    {
+        GameEvents.OnTutorialStarted -= DisableMovement;
+        GameEvents.OnTutorialCompleted -= EnableMovement;
+    }
+
+    void DisableMovement()
+    {
+        canMove = false;
+    }
+
+    void EnableMovement()
+    {
+        canMove = true;
+    }
+
 }
