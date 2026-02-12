@@ -14,16 +14,20 @@ public class PlayerController : MonoBehaviour
 
     private bool isShooting = false;
     private bool isStabbing = false;
+    public bool canMove = true;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
         health = maxHealth;
         animator = GetComponent<Animator>();
+        canMove = false;
     }
 
     void Update()
     {
+        if (!canMove)
+            return;
         if(Input.GetMouseButtonDown(0) && !isShooting && !isStabbing)
         {
             StartCoroutine(ShootRoutine());
@@ -118,4 +122,26 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Healing " + impact + "health");
         changeHealth(impact);
     }
+    void OnEnable()
+    {
+        GameEvents.OnTutorialStarted += DisableMovement;
+        GameEvents.OnTutorialCompleted += EnableMovement;
+    }
+
+    void OnDisable()
+    {
+        GameEvents.OnTutorialStarted -= DisableMovement;
+        GameEvents.OnTutorialCompleted -= EnableMovement;
+    }
+
+    void DisableMovement()
+    {
+        canMove = false;
+    }
+
+    void EnableMovement()
+    {
+        canMove = true;
+    }
+
 }

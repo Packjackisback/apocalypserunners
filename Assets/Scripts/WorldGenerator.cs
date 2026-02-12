@@ -61,8 +61,8 @@ public class WorldGenerator : MonoBehaviour
         {
             if (!neededChunks.Contains(key))
             {
-                RoadGenerator rg = activeChunks[key].GetComponent<RoadGenerator>();
-                rg.ClearRoads(key, chunkSize);
+                //RoadGenerator rg = activeChunks[key].GetComponent<RoadGenerator>();
+                //rg.ClearRoads(key, chunkSize);
 
                 Destroy(activeChunks[key]);
                 toRemove.Add(key);
@@ -90,8 +90,8 @@ public class WorldGenerator : MonoBehaviour
     {
         foreach (var kvp in activeChunks)
         {
-            RoadGenerator rg = kvp.Value.GetComponent<RoadGenerator>();
-            rg.ClearRoads(kvp.Key, chunkSize);
+            //RoadGenerator rg = kvp.Value.GetComponent<RoadGenerator>();
+            //rg.ClearRoads(kvp.Key, chunkSize);
             Destroy(kvp.Value);
         }
 
