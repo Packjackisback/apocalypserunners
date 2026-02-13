@@ -9,7 +9,7 @@ public class RoadGenerator : MonoBehaviour
     public RuleTile roadRuleTile;
 
     [Header("Settings")]
-    public int roadWidth = 8;
+    public int roadWidth = 5;
     [Range(0, 100)]
     public int roadChance = 60;
 

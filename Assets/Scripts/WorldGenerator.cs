@@ -6,8 +6,7 @@ public class WorldGenerator : MonoBehaviour
 {
     public GameObject chunkPrefab;
     public Transform chunksParent;
-    public Tilemap roadTilemap;
-
+    public TileBase groundTile;
     public int chunkSize = 16;
     public int spawnRadius = 1;
 
@@ -61,9 +60,6 @@ public class WorldGenerator : MonoBehaviour
         {
             if (!neededChunks.Contains(key))
             {
-                //RoadGenerator rg = activeChunks[key].GetComponent<RoadGenerator>();
-                //rg.ClearRoads(key, chunkSize);
-
                 Destroy(activeChunks[key]);
                 toRemove.Add(key);
             }
@@ -80,22 +76,22 @@ public class WorldGenerator : MonoBehaviour
         chunk.name = $"Chunk_{coord.x}_{coord.y}";
 
         RoadGenerator rg = chunk.GetComponent<RoadGenerator>();
-        rg.roadTilemap = roadTilemap;
+        StructureGenerator sg = chunk.GetComponent<StructureGenerator>();
+
         rg.GenerateRoads(coord, chunkSize);
+        sg.PlaceBuildings(coord, chunkSize);
 
         activeChunks.Add(coord, chunk);
     }
 
     public void ResetWorld()
     {
-        foreach (var kvp in activeChunks)
+        foreach (var chunk in activeChunks.Values)
         {
-            //RoadGenerator rg = kvp.Value.GetComponent<RoadGenerator>();
-            //rg.ClearRoads(kvp.Key, chunkSize);
-            Destroy(kvp.Value);
+            Destroy(chunk);
         }
-
         activeChunks.Clear();
+
         UpdateChunks();
     }
 }
