@@ -10,6 +10,9 @@ public class PlayerController : MonoBehaviour
     public float maxHealth = 10f;
     float health;
 
+    public float maxHunger = 10f;
+    float hunger;
+
     private Animator animator;
 
     private bool isShooting = false;
@@ -20,6 +23,7 @@ public class PlayerController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody2D>();
         health = maxHealth;
+        hunger = maxHunger;
         animator = GetComponent<Animator>();
         canMove = false;
     }
@@ -121,6 +125,38 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Healing " + impact + "health");
         changeHealth(impact);
     }
+
+    private void changeHunger(float impact)
+    {
+        if (hunger + impact < maxHunger)
+        {
+            hunger += impact;
+        }
+        else
+        {
+            hunger = maxHunger;
+        }
+        if (hunger <= 0)
+        {
+            hunger = 0;
+            dealDamage(0.2f);
+        }
+        HungerHealthBar.instance.SetValue(hunger / maxHunger);
+        Debug.Log("Hunger is " + hunger);
+    }
+
+    public void Eat(float impact)
+    {
+        Debug.Log("Eating " + impact + "food");
+        changeHealth(impact);
+    }
+
+    public void LoseHunger(float impact)
+    {
+        Debug.Log("Draining " + impact + "food");
+        changeHealth(-impact);
+    }
+
     void OnEnable()
     {
         GameEvents.OnTutorialStarted += DisableMovement;
