@@ -6,6 +6,7 @@ public class TutorialUI : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     public GameObject hungerBarCircle;
     public GameObject healthBarCircle;
+    public GameObject Click2Con;
 
     void OnEnable()
     {
@@ -58,6 +59,7 @@ public class TutorialUI : MonoBehaviour
 
     void EndTutorial()
     {
+        Click2Con.SetActive(false);
         healthBarCircle.SetActive(false);
         dialogueText.gameObject.SetActive(false);
     }
