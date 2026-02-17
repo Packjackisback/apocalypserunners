@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using UnityEngine.Events;
 using System;
 
 public class PlayerController : MonoBehaviour
@@ -28,18 +26,14 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "World") canMove = true;
         if (!canMove)
             return;
-        if (Input.GetMouseButtonDown(0) && !isShooting && !isStabbing)
+        if(Input.GetMouseButtonDown(0) && !isShooting && !isStabbing)
         {
             StartCoroutine(ShootRoutine());
-        }
-        else if (Input.GetMouseButtonDown(1) && !isShooting && !isShooting)
-        {
+        } else if(Input.GetMouseButtonDown(1) && !isShooting && !isShooting) {
             StartCoroutine(StabRoutine());
-        }
-        else
+        } else
         {
             handleMovement();
         }
@@ -100,21 +94,19 @@ public class PlayerController : MonoBehaviour
 
     private void changeHealth(float impact)
     {
-        if (health + impact < maxHealth)
+        if(health + impact < maxHealth)
         {
             health += impact;
-        }
-        else
+        } else
         {
             health = maxHealth;
         }
-
-        if (health < 0)
+        if(health <= 0)
         {
             health = 0;
             StateManager.GameOver();
         }
-
+        UIHealthBar.instance.SetValue(health / maxHealth);
         Debug.Log("Health is " + health);
     }
 

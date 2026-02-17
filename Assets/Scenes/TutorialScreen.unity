@@ -383,95 +383,6 @@ PrefabInstance:
       addedObject: {fileID: 879142727}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0dd424465f79e28459497869383dcf9d, type: 3}
---- !u!1 &93494517
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 93494518}
-  - component: {fileID: 93494520}
-  - component: {fileID: 93494519}
-  - component: {fileID: 93494521}
-  m_Layer: 5
-  m_Name: UIHealthBar
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &93494518
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93494517}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 621134397}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 43, y: 4}
-  m_Pivot: {x: 0, y: 0.5}
---- !u!114 &93494519
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93494517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.078431375, g: 0.078431375, b: 0.078431375, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 0}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &93494520
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93494517}
-  m_CullTransparentMesh: 1
---- !u!114 &93494521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 93494517}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 31a19414c41e5ae4aae2af33fee712f6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Mask
-  m_ShowMaskGraphic: 0
 --- !u!1001 &122455285
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1511,15 +1422,14 @@ RectTransform:
   m_GameObject: {fileID: 621134396}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.9956218, y: 0.92674977, z: 0.4275756}
+  m_LocalScale: {x: 0.95774776, y: 0.8569718, z: 0.3329533}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 93494518}
-  m_Father: {fileID: 1137082757}
+  m_Children: []
+  m_Father: {fileID: 1212000294}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 11.389975, y: 0.000017975835}
   m_SizeDelta: {x: 43, y: 4}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &621134399
@@ -19064,9 +18974,13 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 2986627073773060492, guid: 7207542da56fb2944b197f56ae10edb3, type: 3}
-      propertyPath: m_TileSpriteArray.Array.data[2].m_Data
+      propertyPath: m_TileSpriteArray.Array.data[1].m_Data
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 2986627073773060492, guid: 7207542da56fb2944b197f56ae10edb3, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[2].m_Data
+      value: 
+      objectReference: {fileID: -687475474, guid: 7e162fa6f64ecd465bba73279ec9d0d5, type: 3}
     - target: {fileID: 2986627073773060492, guid: 7207542da56fb2944b197f56ae10edb3, type: 3}
       propertyPath: m_Tiles.Array.data[3].second.m_TileIndex
       value: 0
@@ -19084,8 +18998,16 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2986627073773060492, guid: 7207542da56fb2944b197f56ae10edb3, type: 3}
-      propertyPath: m_TileSpriteArray.Array.data[2].m_RefCount
+      propertyPath: m_TileSpriteArray.Array.data[1].m_RefCount
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986627073773060492, guid: 7207542da56fb2944b197f56ae10edb3, type: 3}
+      propertyPath: m_TileSpriteArray.Array.data[2].m_RefCount
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2986627073773060492, guid: 7207542da56fb2944b197f56ae10edb3, type: 3}
+      propertyPath: m_Tiles.Array.data[1].second.m_TileSpriteIndex
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2986627073773060492, guid: 7207542da56fb2944b197f56ae10edb3, type: 3}
       propertyPath: m_Tiles.Array.data[3].second.m_TileSpriteIndex
@@ -19376,7 +19298,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1137082757}
   - component: {fileID: 1137082759}
-  - component: {fileID: 1137082760}
   - component: {fileID: 1137082758}
   m_Layer: 5
   m_Name: Health
@@ -19392,17 +19313,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137082756}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3.2662375, y: 3.13975, z: 2.644}
+  m_LocalScale: {x: 0.9619595, y: 0.9247069, z: 0.77870053}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 621134397}
-  m_Father: {fileID: 1809419121}
+  m_Children: []
+  m_Father: {fileID: 1212000294}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 95.8, y: 164}
+  m_AnchoredPosition: {x: 11.3899765, y: 0.000015258789}
   m_SizeDelta: {x: 43, y: 4}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1137082758
@@ -19443,19 +19363,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1137082756}
   m_CullTransparentMesh: 1
---- !u!114 &1137082760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1137082756}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d181204dc920dc54a89eefd8f3d49bc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::UIHealthBar
-  mask: {fileID: 621134399}
 --- !u!4 &1169439446 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7926668886606383331, guid: d51abdd79905fd74e81fd539c167afbc, type: 3}
@@ -19529,8 +19436,9 @@ GameObject:
   - component: {fileID: 1212000294}
   - component: {fileID: 1212000296}
   - component: {fileID: 1212000295}
+  - component: {fileID: 1212000297}
   m_Layer: 5
-  m_Name: Image
+  m_Name: UIHealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19547,7 +19455,9 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3.3954, y: 3.3954, z: 3.3954}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1137082757}
+  - {fileID: 621134397}
   m_Father: {fileID: 1809419121}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -19593,6 +19503,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1212000293}
   m_CullTransparentMesh: 1
+--- !u!114 &1212000297
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1212000293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d181204dc920dc54a89eefd8f3d49bc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIHealthBar
+  mask: {fileID: 1137082758}
 --- !u!1001 &1222216457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21008,7 +20931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
-  m_IgnoreReversedGraphics: 1
+  m_IgnoreReversedGraphics: 0
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
@@ -21074,7 +20997,6 @@ RectTransform:
   - {fileID: 331193172}
   - {fileID: 491879420}
   - {fileID: 1212000294}
-  - {fileID: 1137082757}
   - {fileID: 1114083348}
   - {fileID: 1736083197}
   m_Father: {fileID: 0}
