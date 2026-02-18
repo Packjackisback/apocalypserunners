@@ -39,6 +39,7 @@ public class InventoryUI : MonoBehaviour
         for (int i = 0; i < slots.Length; i++)
         {
             slots[i].SetSelected(i == selectedSlot);
+            if (i == selectedSlot) Debug.Log("Selected slot " + i);
         }
     }
 

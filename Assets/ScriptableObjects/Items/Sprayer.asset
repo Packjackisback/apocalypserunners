@@ -10,12 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 878e58423f90545659b3a2781733a143, type: 3}
-  m_Name: Pistol
+  m_Name: Sprayer
   m_EditorClassIdentifier: Assembly-CSharp::WeaponItemData
-  itemID: weapon_pistol
-  displayName: Pistol
-  icon: {fileID: 4319395737909131107, guid: 16117c031b7a4f2d99051d3733c96ade, type: 3}
+  itemID: weapon_sprayer
+  displayName: Sprayer
+  icon: {fileID: -144335857, guid: 0d5e657ee5a074e4baa53d5b248a01d2, type: 3}
   itemType: 0
   maxStack: 1
-  damage: 10
-  fireRate: 0.4
+  damage: 2
+  fireRate: 0.05
+  spread: 0.2
+  shots: 1

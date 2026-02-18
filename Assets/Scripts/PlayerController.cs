@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -26,6 +27,7 @@ public class PlayerController : MonoBehaviour
         hunger = maxHunger;
         animator = GetComponent<Animator>();
         canMove = false;
+        if (SceneManager.GetActiveScene().name == "World") canMove = true;
     }
 
     void Update()

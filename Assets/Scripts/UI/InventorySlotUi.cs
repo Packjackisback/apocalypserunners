@@ -8,6 +8,7 @@ public class InventorySlotUI : MonoBehaviour
 
     private int slotIndex;
     private InventoryUI inventoryUI;
+    public Inventory inventory;
 
     public void Setup(InventoryUI ui, int index)
     {

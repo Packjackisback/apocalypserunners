@@ -5,6 +5,7 @@ public class Inventory : MonoBehaviour
 {
     public int size = 16;
     public List<ItemInstance> items = new List<ItemInstance>();
+    private int selected = 0;
 
     private void Awake()
     {
@@ -35,5 +36,15 @@ public class Inventory : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void SetSelected(int selected)
+    {
+        this.selected = selected;
+    }
+
+    public int GetSelected()
+    {
+        return selected;
     }
 }
