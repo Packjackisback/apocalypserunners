@@ -201,6 +201,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599d303ba1af26425bd701ffe68b0b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  moveSpeed: 6
+  moveSpeed: 3
   maxHealth: 10
+  maxHunger: 100
   canMove: 1
+  hungerDrainInterval: 2
+  hungerDrainAmount: 1

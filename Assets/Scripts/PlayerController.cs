@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
     public float maxHealth = 10f;
     float health;
 
-    public float maxHunger = 10f;
+    public float maxHunger = 100f;
     float hunger;
 
     private Animator animator;
@@ -18,6 +18,10 @@ public class PlayerController : MonoBehaviour
     private bool isShooting = false;
     private bool isStabbing = false;
     public bool canMove = true;
+    
+    public float hungerDrainInterval = 2f;
+    public float hungerDrainAmount = 1f;
+    private Coroutine hungerCoroutine;
 
     void Awake()
     {
@@ -26,6 +30,7 @@ public class PlayerController : MonoBehaviour
         hunger = maxHunger;
         animator = GetComponent<Animator>();
         canMove = false;
+        hungerCoroutine = StartCoroutine(HungerDrainRoutine());
     }
 
     void Update()
@@ -54,6 +59,14 @@ public class PlayerController : MonoBehaviour
 
         animator.SetFloat("Attacking", 0);
         isShooting = false;
+    }
+    System.Collections.IEnumerator HungerDrainRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(hungerDrainInterval);
+            changeHunger(-hungerDrainAmount);
+        }
     }
 
     System.Collections.IEnumerator StabRoutine()
@@ -164,7 +177,12 @@ public class PlayerController : MonoBehaviour
     }
 
     void OnDisable()
-    {
+    { 
+        if (hungerCoroutine != null)
+        {
+            StopCoroutine(hungerCoroutine);
+            hungerCoroutine = null;
+        }
         GameEvents.OnTutorialStarted -= DisableMovement;
         GameEvents.OnTutorialCompleted -= EnableMovement;
     }
