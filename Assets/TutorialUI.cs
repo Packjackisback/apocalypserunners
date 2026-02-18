@@ -39,7 +39,7 @@ public class TutorialUI : MonoBehaviour
                 break;
 
             case 1:
-                dialogueText.text = "Let's get to the car over on the right, quick!";
+                dialogueText.text = "There's a car on the right. Let's get over there, quick!";
                 break;
 
             case 2:
