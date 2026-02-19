@@ -67,14 +67,14 @@ public class ZombieController : MonoBehaviour
     }
     void OnEnable()
     {
-        GameEvents.OnTutorialStarted += DisableMovement;
-        GameEvents.OnTutorialCompleted += EnableMovement;
+        GameEvent.OnTutorialStarted += DisableMovement;
+        GameEvent.OnTutorialCompleted += EnableMovement;
     }
 
     void OnDisable()
     {
-        GameEvents.OnTutorialStarted -= DisableMovement;
-        GameEvents.OnTutorialCompleted -= EnableMovement;
+        GameEvent.OnTutorialStarted -= DisableMovement;
+        GameEvent.OnTutorialCompleted -= EnableMovement;
     }
 
     void DisableMovement()

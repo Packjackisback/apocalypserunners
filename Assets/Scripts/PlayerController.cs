@@ -11,7 +11,7 @@ public class PlayerController : MonoBehaviour
     public float maxHealth = 10f;
     float health;
 
-    public float maxHunger = 10f;
+    public float maxHunger = 100f;
     float hunger;
 
     private Animator animator;
@@ -19,6 +19,18 @@ public class PlayerController : MonoBehaviour
     private bool isShooting = false;
     private bool isStabbing = false;
     public bool canMove = true;
+    public float hungerDrainInterval = 2f;
+    public float hungerDrainAmount = 1f;
+    private Coroutine hungerCoroutine;
+
+    public float interactDistance = 2f;
+    public LayerMask interactLayer;
+    public GameObject interactUI;
+    public Transform objectToMove;
+    public float moveSpeedCutscene = 2f;
+
+
+    private bool canInteract = false;
 
     void Awake()
     {
@@ -28,6 +40,7 @@ public class PlayerController : MonoBehaviour
         animator = GetComponent<Animator>();
         canMove = false;
         if (SceneManager.GetActiveScene().name == "World") canMove = true;
+        hungerCoroutine = StartCoroutine(HungerDrainRoutine());
     }
 
     void Update()
@@ -45,7 +58,15 @@ public class PlayerController : MonoBehaviour
         }
 
         animator.SetFloat("Velocity", Math.Max(Math.Abs(rb.linearVelocityX), Math.Abs(rb.linearVelocityY)));
+        CheckForInteraction();
+
+        if (canInteract && Input.GetKeyDown(KeyCode.F))
+        {
+            StartCoroutine(EnterWorldRoutine());
+        }
+
     }
+
 
     System.Collections.IEnumerator ShootRoutine()
     {
@@ -56,6 +77,14 @@ public class PlayerController : MonoBehaviour
 
         animator.SetFloat("Attacking", 0);
         isShooting = false;
+    }
+    System.Collections.IEnumerator HungerDrainRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(hungerDrainInterval);
+            changeHunger(-hungerDrainAmount);
+        }
     }
 
     System.Collections.IEnumerator StabRoutine()
@@ -161,14 +190,19 @@ public class PlayerController : MonoBehaviour
 
     void OnEnable()
     {
-        GameEvents.OnTutorialStarted += DisableMovement;
-        GameEvents.OnTutorialCompleted += EnableMovement;
+        GameEvent.OnTutorialStarted += DisableMovement;
+        GameEvent.OnTutorialCompleted += EnableMovement;
     }
 
     void OnDisable()
     {
-        GameEvents.OnTutorialStarted -= DisableMovement;
-        GameEvents.OnTutorialCompleted -= EnableMovement;
+        if (hungerCoroutine != null)
+        {
+            StopCoroutine(hungerCoroutine);
+            hungerCoroutine = null;
+        }
+        GameEvent.OnTutorialStarted -= DisableMovement;
+        GameEvent.OnTutorialCompleted -= EnableMovement;
     }
 
     void DisableMovement()
@@ -179,6 +213,63 @@ public class PlayerController : MonoBehaviour
     void EnableMovement()
     {
         canMove = true;
+    }
+
+    void CheckForInteraction()
+    {
+        Vector2 direction = new Vector2(
+            animator.GetFloat("LastMoveX"),
+            animator.GetFloat("LastMoveY")
+        );
+
+        if (direction == Vector2.zero)
+        {
+            interactUI.SetActive(false);
+            canInteract = false;
+            return;
+        }
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, interactDistance, interactLayer);
+
+        if (hit.collider != null)
+        {
+            interactUI.SetActive(true);
+            canInteract = true;
+            Debug.Log("Raycast Hit");
+        }
+        else
+        {
+            interactUI.SetActive(false);
+            canInteract = false;
+        }
+    }
+   System.Collections.IEnumerator EnterWorldRoutine()
+    {
+        canMove = false;
+        interactUI.SetActive(false);
+        GetComponent<SpriteRenderer>().enabled = false;
+        GetComponent<Collider2D>().enabled = false;
+
+        Camera mainCam = Camera.main;
+        float timer = 0f;
+        while (timer < 3.5f)
+        {
+            objectToMove.position += Vector3.right * moveSpeedCutscene * Time.deltaTime;
+
+            if (mainCam != null)
+            {
+                mainCam.transform.position = new Vector3(
+                    objectToMove.position.x,
+                    objectToMove.position.y,
+                    mainCam.transform.position.z
+                );
+            }
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        SceneManager.LoadScene("World");
     }
 
 }

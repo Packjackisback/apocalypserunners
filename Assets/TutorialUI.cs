@@ -10,16 +10,16 @@ public class TutorialUI : MonoBehaviour
 
     void OnEnable()
     {
-        GameEvents.OnTutorialStarted += LockPlayer;
-        GameEvents.OnTutorialStepChanged += UpdateDialogue;
-        GameEvents.OnTutorialCompleted += EndTutorial;
+        GameEvent.OnTutorialStarted += LockPlayer;
+        GameEvent.OnTutorialStepChanged += UpdateDialogue;
+        GameEvent.OnTutorialCompleted += EndTutorial;
     }
 
     void OnDisable()
     {
-        GameEvents.OnTutorialStarted -= LockPlayer;
-        GameEvents.OnTutorialStepChanged -= UpdateDialogue;
-        GameEvents.OnTutorialCompleted -= EndTutorial;
+        GameEvent.OnTutorialStarted -= LockPlayer;
+        GameEvent.OnTutorialStepChanged -= UpdateDialogue;
+        GameEvent.OnTutorialCompleted -= EndTutorial;
     }
 
     void LockPlayer()

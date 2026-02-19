@@ -6,8 +6,8 @@ public class TutorialManager : MonoBehaviour
 
     void Start()
     {
-        GameEvents.TutorialStarted();
-        GameEvents.TutorialStepChanged(currentStep);
+        GameEvent.TutorialStarted();
+        GameEvent.TutorialStepChanged(currentStep);
     }
 
     void Update()
@@ -25,11 +25,11 @@ public class TutorialManager : MonoBehaviour
 
         if (currentStep > 4) // end of tutorial
         {
-            GameEvents.TutorialCompleted();
+            GameEvent.TutorialCompleted();
         }
         else
         {
-            GameEvents.TutorialStepChanged(currentStep);
+            GameEvent.TutorialStepChanged(currentStep);
         }
     }
 }

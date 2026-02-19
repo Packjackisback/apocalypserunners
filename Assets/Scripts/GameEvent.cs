@@ -1,11 +1,14 @@
 using System;
 
-public static class GameEvents
+public static class GameEvent
 {
     // Tutorial Events
     public static event Action<int> OnTutorialStepChanged;
     public static event Action OnTutorialStarted;
     public static event Action OnTutorialCompleted;
+
+    // Scene Events
+    public static event Action OnLoadTutorialScene;
 
     public static void TutorialStarted()
     {
@@ -20,5 +23,10 @@ public static class GameEvents
     public static void TutorialCompleted()
     {
         OnTutorialCompleted?.Invoke();
+    }
+
+    public static void LoadTutorialScene()
+    {
+        OnLoadTutorialScene?.Invoke();
     }
 }
