@@ -85,6 +85,11 @@ public class PlayerController : MonoBehaviour
             yield return new WaitForSeconds(hungerDrainInterval);
             changeHunger(-hungerDrainAmount);
         }
+        if(hunger <= 0)
+        {
+            hunger = 0;
+            StateManager.GameOver();
+        }
     }
 
     System.Collections.IEnumerator StabRoutine()
@@ -171,6 +176,7 @@ public class PlayerController : MonoBehaviour
         {
             hunger = 0;
             dealDamage(0.2f);
+            StateManager.GameOver();
         }
         HungerHealthBar.instance.SetValue(hunger / maxHunger);
         Debug.Log("Hunger is " + hunger);

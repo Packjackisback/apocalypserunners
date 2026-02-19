@@ -7,6 +7,7 @@ public class StateManager
 
     public static void GameOver()
     {
+        GameEvent.LoadDeathScene();
         Debug.Log("Game Over");
     }
 }
