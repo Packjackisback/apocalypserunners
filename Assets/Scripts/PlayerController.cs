@@ -15,12 +15,12 @@ public class PlayerController : MonoBehaviour
     float hunger;
 
     private Animator animator;
-
+    public GameObject bulletPrefab;
     private bool isShooting = false;
     private bool isStabbing = false;
     public bool canMove = true;
-    public float hungerDrainInterval = 2f;
-    public float hungerDrainAmount = 1f;
+    public float hungerDrainInterval = 0.1f;
+    public float hungerDrainAmount = 100f;
     private Coroutine hungerCoroutine;
 
     public float interactDistance = 2f;
@@ -29,17 +29,27 @@ public class PlayerController : MonoBehaviour
     public Transform objectToMove;
     public float moveSpeedCutscene = 2f;
 
-
     private bool canInteract = false;
+
+    // AUDIO
+    public AudioClip shootSound;
+    public AudioClip stabSound;
+    public AudioClip moveSound;
+    private AudioSource audioSource;
+    public float bulletSpeed = 1f;
 
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        audioSource = GetComponent<AudioSource>();
+
         health = maxHealth;
         hunger = maxHunger;
         animator = GetComponent<Animator>();
+
         canMove = false;
         if (SceneManager.GetActiveScene().name == "World") canMove = true;
+
         hungerCoroutine = StartCoroutine(HungerDrainRoutine());
     }
 
@@ -47,55 +57,83 @@ public class PlayerController : MonoBehaviour
     {
         if (!canMove)
             return;
-        if(Input.GetMouseButtonDown(0) && !isShooting && !isStabbing)
+
+        if(Input.GetKeyDown(KeyCode.E) && !isShooting && !isStabbing)
         {
             StartCoroutine(ShootRoutine());
-        } else if(Input.GetMouseButtonDown(1) && !isShooting && !isShooting) {
+        }
+        else if(Input.GetMouseButtonDown(1) && !isShooting && !isStabbing)
+        {
             StartCoroutine(StabRoutine());
-        } else
+        }
+        else
         {
             handleMovement();
         }
 
         animator.SetFloat("Velocity", Math.Max(Math.Abs(rb.linearVelocityX), Math.Abs(rb.linearVelocityY)));
+
         CheckForInteraction();
 
         if (canInteract && Input.GetKeyDown(KeyCode.F))
         {
             StartCoroutine(EnterWorldRoutine());
         }
-
     }
 
+   System.Collections.IEnumerator ShootRoutine()
+{
+    isShooting = true;
+    animator.SetFloat("Attacking", 1);
 
-    System.Collections.IEnumerator ShootRoutine()
-    {
-        isShooting = true;
-        animator.SetFloat("Attacking", 1);
+    PlaySound(shootSound);
 
-        yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+    // Spawn bullet
+    if (bulletPrefab != null)
+{
+    // Get the direction the player is facing
+Vector2 shootDir = new Vector2(animator.GetFloat("LastMoveX"), animator.GetFloat("LastMoveY"));
+if (shootDir == Vector2.zero) shootDir = Vector2.right; // default if standing still
+shootDir.Normalize();
 
-        animator.SetFloat("Attacking", 0);
-        isShooting = false;
-    }
-    System.Collections.IEnumerator HungerDrainRoutine()
-    {
-        while (true)
-        {
-            yield return new WaitForSeconds(hungerDrainInterval);
-            changeHunger(-hungerDrainAmount);
-        }
-        if(hunger <= 0)
-        {
-            hunger = 0;
-            StateManager.GameOver();
-        }
-    }
+// Convert spawn position to Vector3 so you can set z
+Vector3 spawnPos = transform.position + (Vector3)(shootDir * 0.5f); 
+spawnPos.z = 0f; // make sure bullet is in front of camera
+
+// Instantiate the bullet
+GameObject bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
+
+// Set bullet scale just in case
+bullet.transform.localScale = Vector3.one;
+
+// Set sprite layer so it appears above player
+SpriteRenderer sr = bullet.GetComponent<SpriteRenderer>();
+if(sr != null)
+{
+    sr.sortingLayerName = "Foreground";
+    sr.sortingOrder = 1;
+}
+
+// Give the bullet velocity
+Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
+if (bulletRb != null)
+{
+    bulletRb.linearVelocity = shootDir * bulletSpeed;
+}
+}
+
+    yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+
+    animator.SetFloat("Attacking", 0);
+    isShooting = false;
+}
 
     System.Collections.IEnumerator StabRoutine()
     {
         isStabbing = true;
         animator.SetFloat("Attacking", 2);
+
+        PlaySound(stabSound);
 
         yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
 
@@ -103,6 +141,14 @@ public class PlayerController : MonoBehaviour
         isStabbing = false;
     }
 
+    System.Collections.IEnumerator HungerDrainRoutine()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(hungerDrainInterval);
+            changeHunger(-hungerDrainAmount);
+        }
+    }
 
     void handleMovement()
     {
@@ -123,7 +169,8 @@ public class PlayerController : MonoBehaviour
 
         animator.SetFloat("Horizontal", moveInput.x);
         animator.SetFloat("Vertical", moveInput.y);
-
+        if(moveInput.x>0||moveInput.y>0)
+            PlaySound(moveSound);
         moveInput = moveInput.normalized;
     }
 
@@ -132,33 +179,43 @@ public class PlayerController : MonoBehaviour
         rb.linearVelocity = moveInput * moveSpeed;
     }
 
+    void PlaySound(AudioClip clip)
+    {
+        if (clip != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(clip);
+        }
+    }
+
     private void changeHealth(float impact)
     {
         if(health + impact < maxHealth)
         {
             health += impact;
-        } else
+        }
+        else
         {
             health = maxHealth;
         }
+
         if(health <= 0)
         {
             health = 0;
             StateManager.GameOver();
         }
+
         UIHealthBar.instance.SetValue(health / maxHealth);
-        Debug.Log("Health is " + health);
     }
 
     public void dealDamage(float impact)
     {
-        Debug.Log("Dealing " + impact + "damage");
+        Debug.Log("Dealing " + impact + " damage");
         changeHealth(-impact);
     }
 
     public void healHealth(float impact)
     {
-        Debug.Log("Healing " + impact + "health");
+        Debug.Log("Healing " + impact + " health");
         changeHealth(impact);
     }
 
@@ -172,25 +229,26 @@ public class PlayerController : MonoBehaviour
         {
             hunger = maxHunger;
         }
+
         if (hunger <= 0)
         {
             hunger = 0;
             dealDamage(0.2f);
             StateManager.GameOver();
         }
+
         HungerHealthBar.instance.SetValue(hunger / maxHunger);
-        Debug.Log("Hunger is " + hunger);
     }
 
     public void Eat(float impact)
     {
-        Debug.Log("Eating " + impact + "food");
+        Debug.Log("Eating " + impact + " food");
         changeHealth(impact);
     }
 
     public void LoseHunger(float impact)
     {
-        Debug.Log("Draining " + impact + "food");
+        Debug.Log("Draining " + impact + " food");
         changeHealth(-impact);
     }
 
@@ -207,6 +265,7 @@ public class PlayerController : MonoBehaviour
             StopCoroutine(hungerCoroutine);
             hungerCoroutine = null;
         }
+
         GameEvent.OnTutorialStarted -= DisableMovement;
         GameEvent.OnTutorialCompleted -= EnableMovement;
     }
@@ -249,15 +308,18 @@ public class PlayerController : MonoBehaviour
             canInteract = false;
         }
     }
-   System.Collections.IEnumerator EnterWorldRoutine()
+
+    System.Collections.IEnumerator EnterWorldRoutine()
     {
         canMove = false;
         interactUI.SetActive(false);
+
         GetComponent<SpriteRenderer>().enabled = false;
         GetComponent<Collider2D>().enabled = false;
 
         Camera mainCam = Camera.main;
         float timer = 0f;
+
         while (timer < 3.5f)
         {
             objectToMove.position += Vector3.right * moveSpeedCutscene * Time.deltaTime;
@@ -277,5 +339,4 @@ public class PlayerController : MonoBehaviour
 
         SceneManager.LoadScene("World");
     }
-
 }

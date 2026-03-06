@@ -1,2 +1,16 @@
 fileFormatVersion: 2
 guid: 1a06c4f9cd8d01631b37fd5b797b04f7
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - chunkPrefab: {instanceID: 0}
+  - chunksParent: {instanceID: 0}
+  - groundTile: {instanceID: 0}
+  - zombiePrefab: {fileID: 3849230399589249373, guid: e93af5af0bc639e478e3c7460bcdcb82, type: 3}
+  - foodPrefab: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

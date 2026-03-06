@@ -12,7 +12,6 @@ public class ZombieController : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        canMove = false;
     }
 
     void FixedUpdate()
@@ -82,7 +81,7 @@ public class ZombieController : MonoBehaviour
         canMove = false;
     }
 
-    void EnableMovement()
+    public void EnableMovement()
     {
         canMove = true;
     }

@@ -33,7 +33,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 7557833236523063910}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &322028962838586985
@@ -201,9 +202,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 599d303ba1af26425bd701ffe68b0b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-  moveSpeed: 3
+  moveSpeed: 2
   maxHealth: 10
   maxHunger: 100
   canMove: 1
   hungerDrainInterval: 2
   hungerDrainAmount: 1
+  interactDistance: 2
+  interactLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  interactUI: {fileID: 0}
+  objectToMove: {fileID: 0}
+  moveSpeedCutscene: 2
+  shootSound: {fileID: 0}
+  stabSound: {fileID: 0}
+  moveSound: {fileID: 0}
+--- !u!1 &7105081383944927125
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7557833236523063910}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7557833236523063910
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7105081383944927125}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 158.44595, y: 95.85711, z: 0}
+  m_LocalScale: {x: 0.33333334, y: 0.33333334, z: 0.33333334}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8097297045272583682}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
