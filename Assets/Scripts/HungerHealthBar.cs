@@ -45,8 +45,8 @@ public class HungerHealthBar : MonoBehaviour
 
     public void SetValue(float value)
 
-    {                        
-
+    {               
+                 
         mask.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, originalSize * value);
 
     }

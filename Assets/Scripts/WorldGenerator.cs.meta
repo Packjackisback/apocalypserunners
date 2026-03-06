@@ -4,11 +4,9 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
-  - chunkPrefab: {instanceID: 0}
-  - chunksParent: {instanceID: 0}
-  - groundTile: {instanceID: 0}
-  - zombiePrefab: {fileID: 3849230399589249373, guid: e93af5af0bc639e478e3c7460bcdcb82, type: 3}
-  - foodPrefab: {instanceID: 0}
+  - chunkPrefab: {fileID: 7397328482142007613, guid: 3fe78eb923b519c429050a1629c05be7, type: 3}
+  - chunksParent: {fileID: 8097297045272583682, guid: e6cf7f78ee98870478457707c5ef6315, type: 3}
+  - groundTile: {fileID: 11400000, guid: a9435e63a23b8ca88a87f41ae098da07, type: 2}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
