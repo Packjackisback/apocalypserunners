@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour
     float hunger;
 
     private Animator animator;
-    public GameObject bulletPrefab;
+    public GameObject projectilePrefab;
     private bool isShooting = false;
     private bool isStabbing = false;
     public bool canMove = true;
@@ -60,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetKeyDown(KeyCode.E) && !isShooting && !isStabbing)
         {
-            StartCoroutine(ShootRoutine());
+            Launch();
         }
         else if(Input.GetMouseButtonDown(1) && !isShooting && !isStabbing)
         {
@@ -81,52 +81,14 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-   System.Collections.IEnumerator ShootRoutine()
-{
-    isShooting = true;
-    animator.SetFloat("Attacking", 1);
+   void Launch()
 
-    PlaySound(shootSound);
+    {
+        GameObject projectilePrefab = Instantiate(projectilePrefab, rigidbody2d.position + Vector2.up * 0.5f, Quaternion.identity);
+        Projectile projectile = projectileObject.GetComponent<Projectile>();
 
-    // Spawn bullet
-    if (bulletPrefab != null)
-{
-    // Get the direction the player is facing
-Vector2 shootDir = new Vector2(animator.GetFloat("LastMoveX"), animator.GetFloat("LastMoveY"));
-if (shootDir == Vector2.zero) shootDir = Vector2.right; // default if standing still
-shootDir.Normalize();
-
-// Convert spawn position to Vector3 so you can set z
-Vector3 spawnPos = transform.position + (Vector3)(shootDir * 0.5f); 
-spawnPos.z = 0f; // make sure bullet is in front of camera
-
-// Instantiate the bullet
-GameObject bullet = Instantiate(bulletPrefab, spawnPos, Quaternion.identity);
-
-// Set bullet scale just in case
-bullet.transform.localScale = Vector3.one;
-
-// Set sprite layer so it appears above player
-SpriteRenderer sr = bullet.GetComponent<SpriteRenderer>();
-if(sr != null)
-{
-    sr.sortingLayerName = "Foreground";
-    sr.sortingOrder = 1;
-}
-
-// Give the bullet velocity
-Rigidbody2D bulletRb = bullet.GetComponent<Rigidbody2D>();
-if (bulletRb != null)
-{
-    bulletRb.linearVelocity = shootDir * bulletSpeed;
-}
-}
-
-    yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-
-    animator.SetFloat("Attacking", 0);
-    isShooting = false;
-}
+        projectile.Launch(lookDirection, 300);
+    }
 
     System.Collections.IEnumerator StabRoutine()
     {
