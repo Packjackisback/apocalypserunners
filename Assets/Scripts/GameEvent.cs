@@ -9,8 +9,8 @@ public static class GameEvent
 
     // Scene Events
     public static event Action OnLoadTutorialScene;
-      public static event Action OnLoadDeathScene;
-    
+    public static event Action OnLoadDeathScene;
+    public static event Action OnLoadVictoryScene;
 
     public static void TutorialStarted()
     {
@@ -35,4 +35,9 @@ public static class GameEvent
     {
         OnLoadDeathScene?.Invoke();
     }
+    public static void LoadVictoryScene()
+    {
+        OnLoadVictoryScene?.Invoke();
+    }
+
 }

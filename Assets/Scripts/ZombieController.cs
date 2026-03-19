@@ -12,9 +12,20 @@ public class ZombieController : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-    }
 
-    void FixedUpdate()
+    }
+    void Start()
+{
+    if (target == null)
+    {
+        GameObject playerObj = GameObject.FindWithTag("Player");
+        if (playerObj != null)
+        {
+            target = playerObj.transform;
+        }
+    }
+}
+    void Update()
     {
         if (!canMove)
             return;
@@ -25,6 +36,7 @@ public class ZombieController : MonoBehaviour
             Vector2 newPos = rb.position + direction * speed * Time.fixedDeltaTime;
             rb.MovePosition(newPos);
         }
+        Debug.Log("Going");
     }
 
     void OnCollisionEnter2D(Collision2D collisionInfo)

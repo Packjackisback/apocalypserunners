@@ -7,12 +7,14 @@ public class SceneLoader : MonoBehaviour
     {
         GameEvent.OnLoadTutorialScene += LoadTutorial;
         GameEvent.OnLoadDeathScene += LoadDeath;
+        GameEvent.OnLoadVictoryScene += LoadVictory;
     }
 
     private void OnDisable()
     {
         GameEvent.OnLoadTutorialScene -= LoadTutorial;
         GameEvent.OnLoadDeathScene -= LoadDeath;
+        GameEvent.OnLoadVictoryScene -= LoadVictory;
     }
 
     void LoadTutorial()
@@ -22,5 +24,9 @@ public class SceneLoader : MonoBehaviour
     void LoadDeath()
     {
         SceneManager.LoadScene("DeathScreen");
+    }
+    void LoadVictory()
+    {
+        SceneManager.LoadScene("VictoryScreen");
     }
 }

@@ -1,97 +1,107 @@
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Tilemaps;
+using TMPro;
 
 public class WorldGenerator : MonoBehaviour
 {
-    public GameObject chunkPrefab;
-    public Transform chunksParent;
-    public TileBase groundTile;
-    public int chunkSize = 16;
-    public int spawnRadius = 1;
+    public GameObject foodPrefab;
+    public GameObject zombiePrefab;
+
+    public float spawnRadius = 50f;
+    public float foodSpawnTime = 2f;
+    public float zombieSpawnTime = 3f;
+
+    public float winTime = 120f;
+    public TextMeshProUGUI winTimerText;
 
     private Transform player;
-    private Dictionary<Vector2Int, GameObject> activeChunks = new Dictionary<Vector2Int, GameObject>();
-    private Vector2Int lastPlayerChunk;
+    private float timer = 0f;
+    private bool hasWon = false;
+    private bool spawningStarted = false;
+    private bool timerActive = false; // NEW flag
 
     void Start()
     {
         player = GameObject.FindWithTag("Player").transform;
-        lastPlayerChunk = GetPlayerChunk();
-        UpdateChunks();
+
+        GameEvent.OnTutorialCompleted += StartWorld;
     }
+
+    void OnDestroy()
+    {
+        GameEvent.OnTutorialCompleted -= StartWorld;
+    }
+
+   public void StartWorld()
+{
+    if (spawningStarted) return;
+
+    spawningStarted = true;
+    timerActive = true; // start timer immediately
+
+    // Start spawning
+    InvokeRepeating("SpawnFood", 1f, foodSpawnTime);
+    InvokeRepeating("SpawnZombie", 1f, zombieSpawnTime);
+
+    // Start player hunger
+    PlayerController playerController = player.GetComponent<PlayerController>();
+    if (playerController != null)
+    {
+        playerController.StartHungerDrain();
+        playerController.hasTalkedToNPC = true; // this ensures the timer runs
+    }
+
+    Debug.Log("World spawning started");
+}
 
     void Update()
     {
-        Vector2Int currentChunk = GetPlayerChunk();
-        if (currentChunk != lastPlayerChunk)
+        if (!hasWon && timerActive)
         {
-            UpdateChunks();
-            lastPlayerChunk = currentChunk;
-        }
-    }
+            timer += Time.deltaTime;
 
-    Vector2Int GetPlayerChunk()
-    {
-        int x = Mathf.FloorToInt(player.position.x / chunkSize);
-        int y = Mathf.FloorToInt(player.position.y / chunkSize);
-        return new Vector2Int(x, y);
-    }
-
-    void UpdateChunks()
-    {
-        Vector2Int playerChunk = GetPlayerChunk();
-        List<Vector2Int> neededChunks = new List<Vector2Int>();
-
-        for (int x = -spawnRadius; x <= spawnRadius; x++)
-        {
-            for (int y = -spawnRadius; y <= spawnRadius; y++)
+            if (winTimerText != null)
             {
-                Vector2Int coord = new Vector2Int(playerChunk.x + x, playerChunk.y + y);
-                neededChunks.Add(coord);
+                float timeLeft = Mathf.Max(winTime - timer, 0f);
+                winTimerText.text = $"Survive: {timeLeft:F1}s";
+            }
 
-                if (!activeChunks.ContainsKey(coord))
-                    SpawnChunk(coord);
+            if (timer >= winTime)
+            {
+                hasWon = true;
+                WinGame();
             }
         }
-
-        List<Vector2Int> toRemove = new List<Vector2Int>();
-        foreach (var key in activeChunks.Keys)
-        {
-            if (!neededChunks.Contains(key))
-            {
-                Destroy(activeChunks[key]);
-                toRemove.Add(key);
-            }
-        }
-
-        foreach (var key in toRemove)
-            activeChunks.Remove(key);
     }
 
-    void SpawnChunk(Vector2Int coord)
+    void SpawnFood()
     {
-        Vector3 worldPos = new Vector3(coord.x * chunkSize, coord.y * chunkSize, 0);
-        GameObject chunk = Instantiate(chunkPrefab, worldPos, Quaternion.identity, chunksParent);
-        chunk.name = $"Chunk_{coord.x}_{coord.y}";
+        if (player == null) return;
 
-        RoadGenerator rg = chunk.GetComponent<RoadGenerator>();
-        StructureGenerator sg = chunk.GetComponent<StructureGenerator>();
-
-        rg.GenerateRoads(coord, chunkSize);
-        sg.PlaceBuildings(coord, chunkSize);
-
-        activeChunks.Add(coord, chunk);
+        Vector2 pos = RandomSpawnPosition();
+        Instantiate(foodPrefab, pos, Quaternion.identity);
     }
 
-    public void ResetWorld()
+    void SpawnZombie()
     {
-        foreach (var chunk in activeChunks.Values)
-        {
-            Destroy(chunk);
-        }
-        activeChunks.Clear();
+        if (player == null) return;
 
-        UpdateChunks();
+        Vector2 pos = RandomSpawnPosition();
+        GameObject zombie = Instantiate(zombiePrefab, pos, Quaternion.identity);
+
+        ZombieController zController = zombie.GetComponent<ZombieController>();
+        if (zController != null)
+            zController.target = player.transform;
+    }
+
+    Vector2 RandomSpawnPosition()
+    {
+        Vector2 random = Random.insideUnitCircle.normalized * spawnRadius;
+        return (Vector2)player.position + random;
+    }
+
+    void WinGame()
+    {
+        Debug.Log("You Win!");
+        GameEvent.LoadVictoryScene();
     }
 }

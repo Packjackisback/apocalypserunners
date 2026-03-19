@@ -5,6 +5,9 @@ TagManager:
   serializedVersion: 3
   tags:
   - Slot
+  - GunPickup
+  - Zombie
+  - NPC
   layers:
   - Default
   - TransparentFX
@@ -16,7 +19,7 @@ TagManager:
   - Zombie
   - Interactable
   - Projectile
-  - 
+  - NPC
   - 
   - 
   - 
